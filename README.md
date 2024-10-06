@@ -1,5 +1,3 @@
-# Let's write the description into a README.md file.
-readme_content = """
 # Book Inventory System
 
 A simple Node.js application for managing a book inventory using RESTful APIs. The app allows users to create, retrieve, and update book records, with data stored in a MongoDB database using Mongoose.
