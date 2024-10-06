@@ -18,10 +18,6 @@ const app =express()
 app.use(express.json())
 app.use('/book',bookRoute)
 
-app.get('/', (req,res)=>{
-    res.send("pong")
-})
-
 app.listen(8080,()=>{
     console.log("server running")
 })
