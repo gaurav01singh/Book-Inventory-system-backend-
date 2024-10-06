@@ -59,7 +59,7 @@ router.post('/create-book', async (req, res) => {
 });
 
 // PUT: Update a book's details
-router.put('/:id', async (req, res) => {
+router.put('/update/:id', async (req, res) => {
     try {
         const book = await Book.findById(req.params.id);
         if (!book) return res.status(404).json({ message: 'Book not found' });
