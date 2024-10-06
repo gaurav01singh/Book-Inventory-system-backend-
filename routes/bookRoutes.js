@@ -12,16 +12,34 @@ router.get('/', async (req, res) => {
     }
 });
 
-// GET: Retrieve a specific book by ID
-router.get('/:id', async (req, res) => {
+// Book search
+router.get('/search', async (req, res) => {
     try {
-        const book = await Book.findById(req.params.id);
-        if (!book) return res.status(404).json({ message: 'Book not found' });
-        res.status(200).json(book);
+        const { title, author, category } = req.query;
+
+        let filter = {};
+        if (title) {
+            filter.title = { $regex: title, $options: 'i' }; 
+        }
+        if (author) {
+            filter.author = { $regex: author, $options: 'i' }; 
+        }
+        if (category) {
+            filter.category = { $regex: category, $options: 'i' }; 
+        }
+
+        const books = await Book.find(filter);
+
+        if (books.length === 0) {
+            return res.status(404).json({ message: 'No books found matching your criteria' });
+        }
+
+        res.status(200).json(books);
     } catch (err) {
         res.status(500).json({ message: err.message });
     }
 });
+
 
 // POST: Add a new book
 router.post('/create-book', async (req, res) => {
